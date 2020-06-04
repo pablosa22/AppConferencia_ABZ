@@ -12,9 +12,8 @@ namespace AppConferenciaABP
         protected void Page_Load(object sender, EventArgs e)
         {
             ServiceReference3.WebService1SoapClient nn = new ServiceReference3.WebService1SoapClient();
-            this.GridView1.DataSource = nn.ListaPedidosParaConferencia();
+            this.GridView1.DataSource = nn.ListaPedidosParaConferencia(99);
             this.GridView1.DataBind();
-
         }
     }
 }

@@ -62,7 +62,7 @@ namespace AppConferenciaABP
 
         //Painel pedidos em processo de separação
         [WebMethod]
-        public List<PainelConferencia> ListaPedidosParaConferencia()
+        public List<PainelConferencia> ListaPedidosParaConferencia(int ordemConf)
         {
             OracleConnection cnn = new OracleConnection("DATA SOURCE=192.168.251.3:1521/WINT;PERSIST SECURITY INFO=True;USER ID=ACOBRAZIL; Password=SGAGRANADO");
             List<PainelConferencia> list = new List<PainelConferencia>();
@@ -72,7 +72,7 @@ namespace AppConferenciaABP
                 OracleCommand cmd = new OracleCommand("SELECT C.CODFILIAL, C.NUMPED, NVL(C.NUMNOTA,0)NOTA, C.CODCLI, SUBSTR(L.CLIENTE, 1, INSTR(L.CLIENTE,' ')-1 )||SUBSTR(L.CLIENTE, INSTR(L.CLIENTE, ' '), INSTR(L.CLIENTE, ' ',2))CLIENTE, " +
                     " L.UFRG, C.OBS, C.OBS1, C.OBS2, SUBSTR(E.NOME,1,INSTR(E.NOME,' ')-1)CONFERENTE, I.PERC FROM PCPEDC C, PCCLIENT L, PCEMPR E, " +
                     " (SELECT I.NUMPED, ROUND(((COUNT(I.QTSEPARADA) * 100) / COUNT(I.QT)), 2) || '%' PERC FROM PCPEDI I GROUP BY I.NUMPED)I WHERE C.CODCLI = L.CODCLI AND E.MATRICULA(+) = C.CODFUNCSEP " +
-                    " AND I.NUMPED = C.NUMPED  AND DATA > TRUNC(SYSDATE) - 120 AND ORDEMCONF = 99 AND C.DTFINALSEP IS NULL ORDER BY C.DTIMPORTACAO ASC", cnn);
+                    $" AND I.NUMPED = C.NUMPED  AND DATA > TRUNC(SYSDATE) - 120 AND ORDEMCONF = '{ordemConf}' AND C.DTFINALSEP IS NULL ORDER BY C.DTIMPORTACAO ASC", cnn);
                 cmd.BindByName = true;                
                 OracleDataReader rdr = cmd.ExecuteReader();
 
@@ -1016,6 +1016,141 @@ namespace AppConferenciaABP
                 cnn.Close();
             }
 
+        }
+
+
+        //Painel Confirma matricula
+        //Expecifico da filial 1
+        [WebMethod]
+        public void ConfirmaConferenciaAutomatica(long numped, int matricula, int opcao)
+        {
+            OracleConnection cnn = new OracleConnection("DATA SOURCE=192.168.251.3:1521/WINT;PERSIST SECURITY INFO=True;USER ID=ACOBRAZIL; Password=SGAGRANADO;");
+            try
+            {
+                if (matricula != 0 && numped != 0 && opcao == 2)
+                {
+                    cnn.Open();
+                    OracleCommand cmd = new OracleCommand($"UPDATE PCPEDC C SET C.CODFUNCSEP ='{matricula}', C.ORDEMCONF = 98, C.DTINICIALSEP = SYSDATE, DTIMPORTACAO = SYSDATE " +
+                        $"WHERE NUMNOTA ='{numped}' AND CONDVENDA = 8 AND POSICAO NOT IN('C') AND DATA > TRUNC(SYSDATE) - 120   ", cnn);
+                    cmd.ExecuteNonQuery();
+
+                    OracleCommand cmd1 = new OracleCommand($"UPDATE PCPEDI C SET C.CODFUNCSEP ='{matricula}', C.DTINICIALSEP = SYSDATE WHERE C.NUMPED IN " +
+                        $"(SELECT NUMPED FROM PCPEDC WHERE NUMNOTA ='{numped}' AND CONDVENDA = 8 AND POSICAO NOT IN('C') AND DATA > TRUNC(SYSDATE) - 120)  ", cnn);
+                    cmd1.ExecuteNonQuery();
+                }
+                else if (matricula != 0 && numped != 0 && opcao == 3)
+                {
+                    cnn.Open();
+                    OracleCommand cmd = new OracleCommand($"UPDATE PCPEDC C SET C.CODFUNCSEP ='{matricula}', C.ORDEMCONF = 98, C.DTINICIALSEP = SYSDATE, DTIMPORTACAO = SYSDATE " +
+                        $"WHERE NUMPED ='{numped}' AND CONDVENDA = 8 AND POSICAO NOT IN('C') ", cnn);
+                    cmd.ExecuteNonQuery();
+
+                    OracleCommand cmd1 = new OracleCommand($"UPDATE PCPEDI C SET C.CODFUNCSEP ='{matricula}', C.DTINICIALSEP = SYSDATE WHERE C.NUMPED IN " +
+                        $"(SELECT NUMPED FROM PCPEDC WHERE NUMPED ='{numped}' AND CONDVENDA = 8 AND POSICAO NOT IN('C'))   ", cnn);
+                    cmd1.ExecuteNonQuery();
+                }
+                else if (matricula != 0 && numped != 0 && opcao == 4)
+                {
+                    cnn.Open();
+                    OracleCommand cmd = new OracleCommand($"UPDATE PCPEDC C SET C.CODFUNCSEP ='{matricula}', C.ORDEMCONF = 98, C.DTINICIALSEP = SYSDATE, DTIMPORTACAO = SYSDATE " +
+                        $" WHERE C.NUMCAR IN (SELECT NUMCAR FROM PCPEDC WHERE NUMCAR ='{numped}' AND CONDVENDA = 8 AND POSICAO NOT IN('C')) ", cnn);
+                    cmd.ExecuteNonQuery();
+
+                    OracleCommand cmd1 = new OracleCommand($"UPDATE PCPEDI C SET C.CODFUNCSEP ='{matricula}', C.DTINICIALSEP = SYSDATE WHERE C.NUMPED IN " +
+                        $" (SELECT NUMPED FROM PCPEDC WHERE NUMCAR ='{numped}' AND CONDVENDA = 8 AND POSICAO NOT IN('C'))   ", cnn);
+                    cmd1.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+        }
+
+        [WebMethod]
+        public void FinalizarConferenciaAutomatica(long numped, int opcao)
+        {
+            OracleConnection cnn = new OracleConnection("DATA SOURCE=192.168.251.3:1521/WINT;PERSIST SECURITY INFO=True;USER ID=ACOBRAZIL; Password=SGAGRANADO;");
+            try
+            {
+                if (numped != 0 && opcao == 2)
+                {
+                    cnn.Open();
+                    OracleCommand cmd = new OracleCommand($"UPDATE PCPEDC C SET C.DTFINALSEP = SYSDATE " +
+                        $"WHERE NUMNOTA ='{numped}' AND CONDVENDA = 8 AND POSICAO NOT IN('C') AND DATA > TRUNC(SYSDATE) - 120 AND ORDEMCONF = 98 AND CODFUNCSEP IS NOT NULL   ", cnn);
+                    cmd.ExecuteNonQuery();
+
+                    OracleCommand cmd1 = new OracleCommand($"UPDATE PCPEDI C SET C.DTFINALSEP = SYSDATE WHERE C.NUMPED IN " +
+                        $"(SELECT NUMPED FROM PCPEDC WHERE NUMNOTA ='{numped}' AND CONDVENDA = 8 AND POSICAO NOT IN('C') AND DATA > TRUNC(SYSDATE) - 120 AND CODFUNCSEP IS NOT NULL)  ", cnn);
+                    cmd1.ExecuteNonQuery();
+                }
+                else if (numped != 0 && opcao == 3)
+                {
+                    cnn.Open();
+                    OracleCommand cmd = new OracleCommand($"UPDATE PCPEDC C SET C.DTFINALSEP = SYSDATE " +
+                        $"WHERE NUMPED ='{numped}' AND CONDVENDA = 8 AND POSICAO NOT IN('C') AND ORDEMCONF = 98 AND CODFUNCSEP IS NOT NULL", cnn);
+                    cmd.ExecuteNonQuery();
+
+                    OracleCommand cmd1 = new OracleCommand($"UPDATE PCPEDI C SET C.DTFINALSEP = SYSDATE WHERE C.NUMPED IN " +
+                        $"(SELECT NUMPED FROM PCPEDC WHERE NUMPED ='{numped}' AND CONDVENDA = 8 AND POSICAO NOT IN('C') AND ORDEMCONF = 98 AND CODFUNCSEP IS NOT NULL)   ", cnn);
+                    cmd1.ExecuteNonQuery();
+                }
+                else if (numped != 0 && opcao == 4)
+                {
+                    cnn.Open();
+                    OracleCommand cmd = new OracleCommand($"UPDATE PCPEDC C SET C.DTFINALSEP = SYSDATE " +
+                        $" WHERE C.NUMCAR IN (SELECT NUMCAR FROM PCPEDC WHERE NUMCAR ='{numped}'  AND CONDVENDA = 8 AND POSICAO NOT IN('C') AND ORDEMCONF = 98 AND CODFUNCSEP IS NOT NULL) ", cnn);
+                    cmd.ExecuteNonQuery();
+
+                    OracleCommand cmd1 = new OracleCommand($"UPDATE PCPEDI C SET C.DTFINALSEP = SYSDATE WHERE C.NUMPED IN " +
+                        $" (SELECT NUMPED FROM PCPEDC WHERE NUMCAR ='{numped}' AND CONDVENDA = 8 AND POSICAO NOT IN('C') AND ORDEMCONF = 98 AND CODFUNCSEP IS NOT NULL)   ", cnn);
+                    cmd1.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+        }
+
+        //Painel Confirma matricula        
+        [WebMethod]
+        public Pessoa ConfirmaMatricula(int matricula)
+        {
+            OracleConnection cnn = new OracleConnection("DATA SOURCE=192.168.251.3:1521/WINT;PERSIST SECURITY INFO=True;USER ID=ACOBRAZIL; Password=SGAGRANADO;");
+            Pessoa pessoa = new Pessoa();
+            try
+            {
+                cnn.Open();
+                OracleCommand cmd = new OracleCommand("SELECT MATRICULA, NOME, NOME_GUERRA FROM PCEMPR WHERE MATRICULA =:matricula ", cnn);
+                cmd.Parameters.Add(new OracleParameter("MATRICULA", matricula));
+                OracleDataReader rdr = cmd.ExecuteReader();
+
+                if (rdr.Read())
+                {
+                    pessoa.Matricula = Convert.ToInt32(rdr["MATRICULA"]);
+                    pessoa.Nome = rdr["NOME"].ToString();
+                    pessoa.Usuario = rdr["NOME_GUERRA"].ToString();
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return pessoa;
         }
 
     }

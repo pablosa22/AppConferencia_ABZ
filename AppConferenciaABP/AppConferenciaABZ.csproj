@@ -88,6 +88,9 @@
     <Content Include="Connected Services\ServiceReference3\AppConferenciaABP.ServiceReference3.ConfirmaAcessoResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <Content Include="Connected Services\ServiceReference3\AppConferenciaABP.ServiceReference3.ConfirmaMatriculaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <Content Include="Connected Services\ServiceReference3\AppConferenciaABP.ServiceReference3.CorrigirCartaCorrecaoResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -186,6 +189,7 @@
     <Content Include="ConvocaoIndex.aspx" />
     <Content Include="EnviaPedidoConferencia.aspx" />
     <Content Include="FaturarCarga.aspx" />
+    <Content Include="FinalizarConferencia.aspx" />
     <Content Include="Grafico.aspx" />
     <Content Include="Img\aco.png" />
     <Content Include="Img\aco2.png" />
@@ -309,6 +313,13 @@
     </Compile>
     <Compile Include="FaturarCarga.aspx.designer.cs">
       <DependentUpon>FaturarCarga.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FinalizarConferencia.aspx.cs">
+      <DependentUpon>FinalizarConferencia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FinalizarConferencia.aspx.designer.cs">
+      <DependentUpon>FinalizarConferencia.aspx</DependentUpon>
     </Compile>
     <Compile Include="Grafico.aspx.cs">
       <DependentUpon>Grafico.aspx</DependentUpon>

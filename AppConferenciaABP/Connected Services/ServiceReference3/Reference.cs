@@ -2050,6 +2050,25 @@ namespace AppConferenciaABP.ServiceReference3 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/InserirNovaCargaSeqEntrega", ReplyAction="*")]
         System.Threading.Tasks.Task<AppConferenciaABP.ServiceReference3.InserirNovaCargaSeqEntregaResponse> InserirNovaCargaSeqEntregaAsync(AppConferenciaABP.ServiceReference3.InserirNovaCargaSeqEntregaRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ConfirmaConferenciaAutomatica", ReplyAction="*")]
+        void ConfirmaConferenciaAutomatica(long numped, int matricula, int opcao);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ConfirmaConferenciaAutomatica", ReplyAction="*")]
+        System.Threading.Tasks.Task ConfirmaConferenciaAutomaticaAsync(long numped, int matricula, int opcao);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/FinalizarConferenciaAutomatica", ReplyAction="*")]
+        void FinalizarConferenciaAutomatica(long numped, int opcao);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/FinalizarConferenciaAutomatica", ReplyAction="*")]
+        System.Threading.Tasks.Task FinalizarConferenciaAutomaticaAsync(long numped, int opcao);
+        
+        // CODEGEN: Gerando contrato de mensagem porque o nome do elemento ConfirmaMatriculaResult no namespace http://tempuri.org/ não está marcado como nulo
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ConfirmaMatricula", ReplyAction="*")]
+        AppConferenciaABP.ServiceReference3.ConfirmaMatriculaResponse ConfirmaMatricula(AppConferenciaABP.ServiceReference3.ConfirmaMatriculaRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ConfirmaMatricula", ReplyAction="*")]
+        System.Threading.Tasks.Task<AppConferenciaABP.ServiceReference3.ConfirmaMatriculaResponse> ConfirmaMatriculaAsync(AppConferenciaABP.ServiceReference3.ConfirmaMatriculaRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -2140,10 +2159,17 @@ namespace AppConferenciaABP.ServiceReference3 {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute()]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
     public partial class ListaPedidosParaConferenciaRequestBody {
         
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public int ordemConf;
+        
         public ListaPedidosParaConferenciaRequestBody() {
+        }
+        
+        public ListaPedidosParaConferenciaRequestBody(int ordemConf) {
+            this.ordemConf = ordemConf;
         }
     }
     
@@ -3274,6 +3300,74 @@ namespace AppConferenciaABP.ServiceReference3 {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ConfirmaMatriculaRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="ConfirmaMatricula", Namespace="http://tempuri.org/", Order=0)]
+        public AppConferenciaABP.ServiceReference3.ConfirmaMatriculaRequestBody Body;
+        
+        public ConfirmaMatriculaRequest() {
+        }
+        
+        public ConfirmaMatriculaRequest(AppConferenciaABP.ServiceReference3.ConfirmaMatriculaRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class ConfirmaMatriculaRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public int matricula;
+        
+        public ConfirmaMatriculaRequestBody() {
+        }
+        
+        public ConfirmaMatriculaRequestBody(int matricula) {
+            this.matricula = matricula;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ConfirmaMatriculaResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="ConfirmaMatriculaResponse", Namespace="http://tempuri.org/", Order=0)]
+        public AppConferenciaABP.ServiceReference3.ConfirmaMatriculaResponseBody Body;
+        
+        public ConfirmaMatriculaResponse() {
+        }
+        
+        public ConfirmaMatriculaResponse(AppConferenciaABP.ServiceReference3.ConfirmaMatriculaResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class ConfirmaMatriculaResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public AppConferenciaABP.ServiceReference3.Pessoa ConfirmaMatriculaResult;
+        
+        public ConfirmaMatriculaResponseBody() {
+        }
+        
+        public ConfirmaMatriculaResponseBody(AppConferenciaABP.ServiceReference3.Pessoa ConfirmaMatriculaResult) {
+            this.ConfirmaMatriculaResult = ConfirmaMatriculaResult;
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface WebService1SoapChannel : AppConferenciaABP.ServiceReference3.WebService1Soap, System.ServiceModel.IClientChannel {
     }
@@ -3331,9 +3425,10 @@ namespace AppConferenciaABP.ServiceReference3 {
             return base.Channel.ListaPedidosParaConferencia(request);
         }
         
-        public AppConferenciaABP.ServiceReference3.PainelConferencia[] ListaPedidosParaConferencia() {
+        public AppConferenciaABP.ServiceReference3.PainelConferencia[] ListaPedidosParaConferencia(int ordemConf) {
             AppConferenciaABP.ServiceReference3.ListaPedidosParaConferenciaRequest inValue = new AppConferenciaABP.ServiceReference3.ListaPedidosParaConferenciaRequest();
             inValue.Body = new AppConferenciaABP.ServiceReference3.ListaPedidosParaConferenciaRequestBody();
+            inValue.Body.ordemConf = ordemConf;
             AppConferenciaABP.ServiceReference3.ListaPedidosParaConferenciaResponse retVal = ((AppConferenciaABP.ServiceReference3.WebService1Soap)(this)).ListaPedidosParaConferencia(inValue);
             return retVal.Body.ListaPedidosParaConferenciaResult;
         }
@@ -3343,9 +3438,10 @@ namespace AppConferenciaABP.ServiceReference3 {
             return base.Channel.ListaPedidosParaConferenciaAsync(request);
         }
         
-        public System.Threading.Tasks.Task<AppConferenciaABP.ServiceReference3.ListaPedidosParaConferenciaResponse> ListaPedidosParaConferenciaAsync() {
+        public System.Threading.Tasks.Task<AppConferenciaABP.ServiceReference3.ListaPedidosParaConferenciaResponse> ListaPedidosParaConferenciaAsync(int ordemConf) {
             AppConferenciaABP.ServiceReference3.ListaPedidosParaConferenciaRequest inValue = new AppConferenciaABP.ServiceReference3.ListaPedidosParaConferenciaRequest();
             inValue.Body = new AppConferenciaABP.ServiceReference3.ListaPedidosParaConferenciaRequestBody();
+            inValue.Body.ordemConf = ordemConf;
             return ((AppConferenciaABP.ServiceReference3.WebService1Soap)(this)).ListaPedidosParaConferenciaAsync(inValue);
         }
         
@@ -3813,6 +3909,47 @@ namespace AppConferenciaABP.ServiceReference3 {
             inValue.Body.seq_entrega = seq_entrega;
             inValue.Body.obs = obs;
             return ((AppConferenciaABP.ServiceReference3.WebService1Soap)(this)).InserirNovaCargaSeqEntregaAsync(inValue);
+        }
+        
+        public void ConfirmaConferenciaAutomatica(long numped, int matricula, int opcao) {
+            base.Channel.ConfirmaConferenciaAutomatica(numped, matricula, opcao);
+        }
+        
+        public System.Threading.Tasks.Task ConfirmaConferenciaAutomaticaAsync(long numped, int matricula, int opcao) {
+            return base.Channel.ConfirmaConferenciaAutomaticaAsync(numped, matricula, opcao);
+        }
+        
+        public void FinalizarConferenciaAutomatica(long numped, int opcao) {
+            base.Channel.FinalizarConferenciaAutomatica(numped, opcao);
+        }
+        
+        public System.Threading.Tasks.Task FinalizarConferenciaAutomaticaAsync(long numped, int opcao) {
+            return base.Channel.FinalizarConferenciaAutomaticaAsync(numped, opcao);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        AppConferenciaABP.ServiceReference3.ConfirmaMatriculaResponse AppConferenciaABP.ServiceReference3.WebService1Soap.ConfirmaMatricula(AppConferenciaABP.ServiceReference3.ConfirmaMatriculaRequest request) {
+            return base.Channel.ConfirmaMatricula(request);
+        }
+        
+        public AppConferenciaABP.ServiceReference3.Pessoa ConfirmaMatricula(int matricula) {
+            AppConferenciaABP.ServiceReference3.ConfirmaMatriculaRequest inValue = new AppConferenciaABP.ServiceReference3.ConfirmaMatriculaRequest();
+            inValue.Body = new AppConferenciaABP.ServiceReference3.ConfirmaMatriculaRequestBody();
+            inValue.Body.matricula = matricula;
+            AppConferenciaABP.ServiceReference3.ConfirmaMatriculaResponse retVal = ((AppConferenciaABP.ServiceReference3.WebService1Soap)(this)).ConfirmaMatricula(inValue);
+            return retVal.Body.ConfirmaMatriculaResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<AppConferenciaABP.ServiceReference3.ConfirmaMatriculaResponse> AppConferenciaABP.ServiceReference3.WebService1Soap.ConfirmaMatriculaAsync(AppConferenciaABP.ServiceReference3.ConfirmaMatriculaRequest request) {
+            return base.Channel.ConfirmaMatriculaAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<AppConferenciaABP.ServiceReference3.ConfirmaMatriculaResponse> ConfirmaMatriculaAsync(int matricula) {
+            AppConferenciaABP.ServiceReference3.ConfirmaMatriculaRequest inValue = new AppConferenciaABP.ServiceReference3.ConfirmaMatriculaRequest();
+            inValue.Body = new AppConferenciaABP.ServiceReference3.ConfirmaMatriculaRequestBody();
+            inValue.Body.matricula = matricula;
+            return ((AppConferenciaABP.ServiceReference3.WebService1Soap)(this)).ConfirmaMatriculaAsync(inValue);
         }
     }
 }

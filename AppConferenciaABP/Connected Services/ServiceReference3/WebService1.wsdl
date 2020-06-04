@@ -31,7 +31,11 @@
         </s:sequence>
       </s:complexType>
       <s:element name="ListaPedidosParaConferencia">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ordemConf" type="s:int" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="ListaPedidosParaConferenciaResponse">
         <s:complexType>
@@ -502,6 +506,43 @@
       <s:element name="InserirNovaCargaSeqEntregaResponse">
         <s:complexType />
       </s:element>
+      <s:element name="ConfirmaConferenciaAutomatica">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="numped" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="matricula" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="opcao" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConfirmaConferenciaAutomaticaResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="FinalizarConferenciaAutomatica">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="numped" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="opcao" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FinalizarConferenciaAutomaticaResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="ConfirmaMatricula">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="matricula" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConfirmaMatriculaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConfirmaMatriculaResult" type="tns:Pessoa" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="ListaItensParaConferenciaSoapIn">
@@ -648,6 +689,24 @@
   <wsdl:message name="InserirNovaCargaSeqEntregaSoapOut">
     <wsdl:part name="parameters" element="tns:InserirNovaCargaSeqEntregaResponse" />
   </wsdl:message>
+  <wsdl:message name="ConfirmaConferenciaAutomaticaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConfirmaConferenciaAutomatica" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmaConferenciaAutomaticaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConfirmaConferenciaAutomaticaResponse" />
+  </wsdl:message>
+  <wsdl:message name="FinalizarConferenciaAutomaticaSoapIn">
+    <wsdl:part name="parameters" element="tns:FinalizarConferenciaAutomatica" />
+  </wsdl:message>
+  <wsdl:message name="FinalizarConferenciaAutomaticaSoapOut">
+    <wsdl:part name="parameters" element="tns:FinalizarConferenciaAutomaticaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmaMatriculaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConfirmaMatricula" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmaMatriculaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConfirmaMatriculaResponse" />
+  </wsdl:message>
   <wsdl:portType name="WebService1Soap">
     <wsdl:operation name="ListaItensParaConferencia">
       <wsdl:input message="tns:ListaItensParaConferenciaSoapIn" />
@@ -744,6 +803,18 @@
     <wsdl:operation name="InserirNovaCargaSeqEntrega">
       <wsdl:input message="tns:InserirNovaCargaSeqEntregaSoapIn" />
       <wsdl:output message="tns:InserirNovaCargaSeqEntregaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmaConferenciaAutomatica">
+      <wsdl:input message="tns:ConfirmaConferenciaAutomaticaSoapIn" />
+      <wsdl:output message="tns:ConfirmaConferenciaAutomaticaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FinalizarConferenciaAutomatica">
+      <wsdl:input message="tns:FinalizarConferenciaAutomaticaSoapIn" />
+      <wsdl:output message="tns:FinalizarConferenciaAutomaticaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmaMatricula">
+      <wsdl:input message="tns:ConfirmaMatriculaSoapIn" />
+      <wsdl:output message="tns:ConfirmaMatriculaSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WebService1Soap" type="tns:WebService1Soap">
@@ -964,6 +1035,33 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ConfirmaConferenciaAutomatica">
+      <soap:operation soapAction="http://tempuri.org/ConfirmaConferenciaAutomatica" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FinalizarConferenciaAutomatica">
+      <soap:operation soapAction="http://tempuri.org/FinalizarConferenciaAutomatica" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmaMatricula">
+      <soap:operation soapAction="http://tempuri.org/ConfirmaMatricula" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="WebService1Soap12" type="tns:WebService1Soap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -1176,6 +1274,33 @@
     </wsdl:operation>
     <wsdl:operation name="InserirNovaCargaSeqEntrega">
       <soap12:operation soapAction="http://tempuri.org/InserirNovaCargaSeqEntrega" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmaConferenciaAutomatica">
+      <soap12:operation soapAction="http://tempuri.org/ConfirmaConferenciaAutomatica" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FinalizarConferenciaAutomatica">
+      <soap12:operation soapAction="http://tempuri.org/FinalizarConferenciaAutomatica" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmaMatricula">
+      <soap12:operation soapAction="http://tempuri.org/ConfirmaMatricula" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
