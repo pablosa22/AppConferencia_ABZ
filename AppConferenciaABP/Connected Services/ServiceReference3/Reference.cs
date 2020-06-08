@@ -2069,6 +2069,13 @@ namespace AppConferenciaABP.ServiceReference3 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ConfirmaMatricula", ReplyAction="*")]
         System.Threading.Tasks.Task<AppConferenciaABP.ServiceReference3.ConfirmaMatriculaResponse> ConfirmaMatriculaAsync(AppConferenciaABP.ServiceReference3.ConfirmaMatriculaRequest request);
+        
+        // CODEGEN: Gerando contrato de mensagem porque o nome do elemento obs no namespace http://tempuri.org/ não está marcado como nulo
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IncluirAjudantes", ReplyAction="*")]
+        AppConferenciaABP.ServiceReference3.IncluirAjudantesResponse IncluirAjudantes(AppConferenciaABP.ServiceReference3.IncluirAjudantesRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IncluirAjudantes", ReplyAction="*")]
+        System.Threading.Tasks.Task<AppConferenciaABP.ServiceReference3.IncluirAjudantesResponse> IncluirAjudantesAsync(AppConferenciaABP.ServiceReference3.IncluirAjudantesRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -3368,6 +3375,115 @@ namespace AppConferenciaABP.ServiceReference3 {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class IncluirAjudantesRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="IncluirAjudantes", Namespace="http://tempuri.org/", Order=0)]
+        public AppConferenciaABP.ServiceReference3.IncluirAjudantesRequestBody Body;
+        
+        public IncluirAjudantesRequest() {
+        }
+        
+        public IncluirAjudantesRequest(AppConferenciaABP.ServiceReference3.IncluirAjudantesRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class IncluirAjudantesRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public long numcar;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+        public int codconf;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+        public int aj1;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+        public int aj2;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+        public int aj3;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+        public int aj4;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+        public int aj5;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+        public int aj6;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=8)]
+        public int aj7;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=9)]
+        public int aj8;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=10)]
+        public int aj9;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=11)]
+        public int aj10;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=12)]
+        public string obs;
+        
+        public IncluirAjudantesRequestBody() {
+        }
+        
+        public IncluirAjudantesRequestBody(long numcar, int codconf, int aj1, int aj2, int aj3, int aj4, int aj5, int aj6, int aj7, int aj8, int aj9, int aj10, string obs) {
+            this.numcar = numcar;
+            this.codconf = codconf;
+            this.aj1 = aj1;
+            this.aj2 = aj2;
+            this.aj3 = aj3;
+            this.aj4 = aj4;
+            this.aj5 = aj5;
+            this.aj6 = aj6;
+            this.aj7 = aj7;
+            this.aj8 = aj8;
+            this.aj9 = aj9;
+            this.aj10 = aj10;
+            this.obs = obs;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class IncluirAjudantesResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="IncluirAjudantesResponse", Namespace="http://tempuri.org/", Order=0)]
+        public AppConferenciaABP.ServiceReference3.IncluirAjudantesResponseBody Body;
+        
+        public IncluirAjudantesResponse() {
+        }
+        
+        public IncluirAjudantesResponse(AppConferenciaABP.ServiceReference3.IncluirAjudantesResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute()]
+    public partial class IncluirAjudantesResponseBody {
+        
+        public IncluirAjudantesResponseBody() {
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface WebService1SoapChannel : AppConferenciaABP.ServiceReference3.WebService1Soap, System.ServiceModel.IClientChannel {
     }
@@ -3950,6 +4066,54 @@ namespace AppConferenciaABP.ServiceReference3 {
             inValue.Body = new AppConferenciaABP.ServiceReference3.ConfirmaMatriculaRequestBody();
             inValue.Body.matricula = matricula;
             return ((AppConferenciaABP.ServiceReference3.WebService1Soap)(this)).ConfirmaMatriculaAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        AppConferenciaABP.ServiceReference3.IncluirAjudantesResponse AppConferenciaABP.ServiceReference3.WebService1Soap.IncluirAjudantes(AppConferenciaABP.ServiceReference3.IncluirAjudantesRequest request) {
+            return base.Channel.IncluirAjudantes(request);
+        }
+        
+        public void IncluirAjudantes(long numcar, int codconf, int aj1, int aj2, int aj3, int aj4, int aj5, int aj6, int aj7, int aj8, int aj9, int aj10, string obs) {
+            AppConferenciaABP.ServiceReference3.IncluirAjudantesRequest inValue = new AppConferenciaABP.ServiceReference3.IncluirAjudantesRequest();
+            inValue.Body = new AppConferenciaABP.ServiceReference3.IncluirAjudantesRequestBody();
+            inValue.Body.numcar = numcar;
+            inValue.Body.codconf = codconf;
+            inValue.Body.aj1 = aj1;
+            inValue.Body.aj2 = aj2;
+            inValue.Body.aj3 = aj3;
+            inValue.Body.aj4 = aj4;
+            inValue.Body.aj5 = aj5;
+            inValue.Body.aj6 = aj6;
+            inValue.Body.aj7 = aj7;
+            inValue.Body.aj8 = aj8;
+            inValue.Body.aj9 = aj9;
+            inValue.Body.aj10 = aj10;
+            inValue.Body.obs = obs;
+            AppConferenciaABP.ServiceReference3.IncluirAjudantesResponse retVal = ((AppConferenciaABP.ServiceReference3.WebService1Soap)(this)).IncluirAjudantes(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<AppConferenciaABP.ServiceReference3.IncluirAjudantesResponse> AppConferenciaABP.ServiceReference3.WebService1Soap.IncluirAjudantesAsync(AppConferenciaABP.ServiceReference3.IncluirAjudantesRequest request) {
+            return base.Channel.IncluirAjudantesAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<AppConferenciaABP.ServiceReference3.IncluirAjudantesResponse> IncluirAjudantesAsync(long numcar, int codconf, int aj1, int aj2, int aj3, int aj4, int aj5, int aj6, int aj7, int aj8, int aj9, int aj10, string obs) {
+            AppConferenciaABP.ServiceReference3.IncluirAjudantesRequest inValue = new AppConferenciaABP.ServiceReference3.IncluirAjudantesRequest();
+            inValue.Body = new AppConferenciaABP.ServiceReference3.IncluirAjudantesRequestBody();
+            inValue.Body.numcar = numcar;
+            inValue.Body.codconf = codconf;
+            inValue.Body.aj1 = aj1;
+            inValue.Body.aj2 = aj2;
+            inValue.Body.aj3 = aj3;
+            inValue.Body.aj4 = aj4;
+            inValue.Body.aj5 = aj5;
+            inValue.Body.aj6 = aj6;
+            inValue.Body.aj7 = aj7;
+            inValue.Body.aj8 = aj8;
+            inValue.Body.aj9 = aj9;
+            inValue.Body.aj10 = aj10;
+            inValue.Body.obs = obs;
+            return ((AppConferenciaABP.ServiceReference3.WebService1Soap)(this)).IncluirAjudantesAsync(inValue);
         }
     }
 }

@@ -1029,35 +1029,39 @@ namespace AppConferenciaABP
             {
                 if (matricula != 0 && numped != 0 && opcao == 2)
                 {
+                    /*
                     cnn.Open();
                     OracleCommand cmd = new OracleCommand($"UPDATE PCPEDC C SET C.CODFUNCSEP ='{matricula}', C.ORDEMCONF = 98, C.DTINICIALSEP = SYSDATE, DTIMPORTACAO = SYSDATE " +
-                        $"WHERE NUMNOTA ='{numped}' AND CONDVENDA = 8 AND POSICAO NOT IN('C') AND DATA > TRUNC(SYSDATE) - 120   ", cnn);
+                        $"WHERE NUMNOTA ='{numped}' (AND CONDVENDA = 8 or AND CONDVENDA = 1) AND POSICAO NOT IN('C') AND DATA > TRUNC(SYSDATE) - 120   ", cnn);
                     cmd.ExecuteNonQuery();
 
                     OracleCommand cmd1 = new OracleCommand($"UPDATE PCPEDI C SET C.CODFUNCSEP ='{matricula}', C.DTINICIALSEP = SYSDATE WHERE C.NUMPED IN " +
-                        $"(SELECT NUMPED FROM PCPEDC WHERE NUMNOTA ='{numped}' AND CONDVENDA = 8 AND POSICAO NOT IN('C') AND DATA > TRUNC(SYSDATE) - 120)  ", cnn);
+                        $"(SELECT NUMPED FROM PCPEDC WHERE NUMNOTA ='{numped}' (AND CONDVENDA = 8 or AND CONDVENDA = 1) AND POSICAO NOT IN('C') AND DATA > TRUNC(SYSDATE) - 120)  ", cnn);
                     cmd1.ExecuteNonQuery();
+                    */
                 }
                 else if (matricula != 0 && numped != 0 && opcao == 3)
                 {
+                    /*
                     cnn.Open();
                     OracleCommand cmd = new OracleCommand($"UPDATE PCPEDC C SET C.CODFUNCSEP ='{matricula}', C.ORDEMCONF = 98, C.DTINICIALSEP = SYSDATE, DTIMPORTACAO = SYSDATE " +
-                        $"WHERE NUMPED ='{numped}' AND CONDVENDA = 8 AND POSICAO NOT IN('C') ", cnn);
+                        $"WHERE NUMPED ='{numped}' (AND CONDVENDA = 8 or AND CONDVENDA = 1) AND POSICAO NOT IN('C') ", cnn);
                     cmd.ExecuteNonQuery();
 
                     OracleCommand cmd1 = new OracleCommand($"UPDATE PCPEDI C SET C.CODFUNCSEP ='{matricula}', C.DTINICIALSEP = SYSDATE WHERE C.NUMPED IN " +
-                        $"(SELECT NUMPED FROM PCPEDC WHERE NUMPED ='{numped}' AND CONDVENDA = 8 AND POSICAO NOT IN('C'))   ", cnn);
+                        $"(SELECT NUMPED FROM PCPEDC WHERE NUMPED ='{numped}' (AND CONDVENDA = 8 or AND CONDVENDA = 1) AND POSICAO NOT IN('C'))   ", cnn);
                     cmd1.ExecuteNonQuery();
+                    */
                 }
                 else if (matricula != 0 && numped != 0 && opcao == 4)
                 {
                     cnn.Open();
                     OracleCommand cmd = new OracleCommand($"UPDATE PCPEDC C SET C.CODFUNCSEP ='{matricula}', C.ORDEMCONF = 98, C.DTINICIALSEP = SYSDATE, DTIMPORTACAO = SYSDATE " +
-                        $" WHERE C.NUMCAR IN (SELECT NUMCAR FROM PCPEDC WHERE NUMCAR ='{numped}' AND CONDVENDA = 8 AND POSICAO NOT IN('C')) ", cnn);
+                        $" WHERE C.NUMCAR ='{numped}' AND CONDVENDA IN (10, 8, 1) AND POSICAO NOT IN('C') ", cnn);
                     cmd.ExecuteNonQuery();
 
                     OracleCommand cmd1 = new OracleCommand($"UPDATE PCPEDI C SET C.CODFUNCSEP ='{matricula}', C.DTINICIALSEP = SYSDATE WHERE C.NUMPED IN " +
-                        $" (SELECT NUMPED FROM PCPEDC WHERE NUMCAR ='{numped}' AND CONDVENDA = 8 AND POSICAO NOT IN('C'))   ", cnn);
+                        $" (SELECT NUMPED FROM PCPEDC WHERE NUMCAR ='{numped}' AND CONDVENDA IN (10, 8, 1) AND POSICAO NOT IN('C'))   ", cnn);
                     cmd1.ExecuteNonQuery();
                 }
             }
@@ -1079,35 +1083,39 @@ namespace AppConferenciaABP
             {
                 if (numped != 0 && opcao == 2)
                 {
+                     /*
                     cnn.Open();
                     OracleCommand cmd = new OracleCommand($"UPDATE PCPEDC C SET C.DTFINALSEP = SYSDATE " +
-                        $"WHERE NUMNOTA ='{numped}' AND CONDVENDA = 8 AND POSICAO NOT IN('C') AND DATA > TRUNC(SYSDATE) - 120 AND ORDEMCONF = 98 AND CODFUNCSEP IS NOT NULL   ", cnn);
+                        $"WHERE NUMNOTA ='{numped}' (AND CONDVENDA = 8 or AND CONDVENDA = 1) AND POSICAO NOT IN('C') AND DATA > TRUNC(SYSDATE) - 120 AND ORDEMCONF = 98 AND CODFUNCSEP IS NOT NULL   ", cnn);
                     cmd.ExecuteNonQuery();
 
                     OracleCommand cmd1 = new OracleCommand($"UPDATE PCPEDI C SET C.DTFINALSEP = SYSDATE WHERE C.NUMPED IN " +
-                        $"(SELECT NUMPED FROM PCPEDC WHERE NUMNOTA ='{numped}' AND CONDVENDA = 8 AND POSICAO NOT IN('C') AND DATA > TRUNC(SYSDATE) - 120 AND CODFUNCSEP IS NOT NULL)  ", cnn);
+                        $"(SELECT NUMPED FROM PCPEDC WHERE NUMNOTA ='{numped}' (AND CONDVENDA = 8 or AND CONDVENDA = 1) AND POSICAO NOT IN('C') AND DATA > TRUNC(SYSDATE) - 120 AND CODFUNCSEP IS NOT NULL)  ", cnn);
                     cmd1.ExecuteNonQuery();
+                     */
                 }
                 else if (numped != 0 && opcao == 3)
                 {
+                     /*
                     cnn.Open();
                     OracleCommand cmd = new OracleCommand($"UPDATE PCPEDC C SET C.DTFINALSEP = SYSDATE " +
-                        $"WHERE NUMPED ='{numped}' AND CONDVENDA = 8 AND POSICAO NOT IN('C') AND ORDEMCONF = 98 AND CODFUNCSEP IS NOT NULL", cnn);
+                        $"WHERE NUMPED ='{numped}' (AND CONDVENDA = 8 or AND CONDVENDA = 1) AND POSICAO NOT IN('C') AND ORDEMCONF = 98 AND CODFUNCSEP IS NOT NULL", cnn);
                     cmd.ExecuteNonQuery();
 
                     OracleCommand cmd1 = new OracleCommand($"UPDATE PCPEDI C SET C.DTFINALSEP = SYSDATE WHERE C.NUMPED IN " +
-                        $"(SELECT NUMPED FROM PCPEDC WHERE NUMPED ='{numped}' AND CONDVENDA = 8 AND POSICAO NOT IN('C') AND ORDEMCONF = 98 AND CODFUNCSEP IS NOT NULL)   ", cnn);
+                        $"(SELECT NUMPED FROM PCPEDC WHERE NUMPED ='{numped}' (AND CONDVENDA = 8 or AND CONDVENDA = 1) AND POSICAO NOT IN('C') AND ORDEMCONF = 98 AND CODFUNCSEP IS NOT NULL)   ", cnn);
                     cmd1.ExecuteNonQuery();
+                     */
                 }
                 else if (numped != 0 && opcao == 4)
                 {
                     cnn.Open();
-                    OracleCommand cmd = new OracleCommand($"UPDATE PCPEDC C SET C.DTFINALSEP = SYSDATE " +
-                        $" WHERE C.NUMCAR IN (SELECT NUMCAR FROM PCPEDC WHERE NUMCAR ='{numped}'  AND CONDVENDA = 8 AND POSICAO NOT IN('C') AND ORDEMCONF = 98 AND CODFUNCSEP IS NOT NULL) ", cnn);
+                    OracleCommand cmd = new OracleCommand($"UPDATE PCPEDC C SET C.DTFINALSEP = SYSDATE WHERE C.NUMCAR ='{numped}'  " +
+                        $" AND CONDVENDA IN(10, 8, 1) AND POSICAO NOT IN('C') AND ORDEMCONF = 98 AND CODFUNCSEP IS NOT NULL ", cnn);
                     cmd.ExecuteNonQuery();
 
                     OracleCommand cmd1 = new OracleCommand($"UPDATE PCPEDI C SET C.DTFINALSEP = SYSDATE WHERE C.NUMPED IN " +
-                        $" (SELECT NUMPED FROM PCPEDC WHERE NUMCAR ='{numped}' AND CONDVENDA = 8 AND POSICAO NOT IN('C') AND ORDEMCONF = 98 AND CODFUNCSEP IS NOT NULL)   ", cnn);
+                        $" (SELECT NUMPED FROM PCPEDC WHERE NUMCAR ='{numped}' AND CONDVENDA IN(10, 8, 1) AND POSICAO NOT IN('C') AND ORDEMCONF = 98 AND CODFUNCSEP IS NOT NULL)   ", cnn);
                     cmd1.ExecuteNonQuery();
                 }
             }
@@ -1153,5 +1161,31 @@ namespace AppConferenciaABP
             return pessoa;
         }
 
+        
+        //Incluir ajudantes na tabela abz_ajudante        
+        [WebMethod]
+        public void IncluirAjudantes(long numcar, int codconf, int aj1, int aj2, int aj3, int aj4, int aj5, int aj6, int aj7, int aj8, int aj9, int aj10, string obs)
+        {
+            OracleConnection cnn = new OracleConnection("DATA SOURCE=192.168.251.3:1521/WINT;PERSIST SECURITY INFO=True;USER ID=ACOBRAZIL; Password=SGAGRANADO;");
+            try
+            {
+                if (numcar != 0 && codconf != 0)
+                {
+                    cnn.Open();
+                    OracleCommand cmd = new OracleCommand("INSERT INTO ABZ_AJUDANTE (DATA, NUMCAR, CODCONF, CODAJUDANTE1, CODAJUDANTE2, CODAJUDANTE3, CODAJUDANTE4, " +
+                        " CODAJUDANTE5, CODAJUDANTE6, CODAJUDANTE7, CODAJUDANTE8, CODAJUDANTE9, CODAJUDANTE10, OBS) VALUES " +
+                        $"(TRUNC(SYSDATE), '{numcar}', '{codconf}', '{aj1}', '{aj2}', '{aj3}', '{aj4}', '{aj5}', '{aj6}', '{aj7}', '{aj8}', '{aj9}', '{aj10}', '{obs}')  ", cnn);                    
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+        }        
     }
 }

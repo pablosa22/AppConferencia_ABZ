@@ -106,6 +106,9 @@
     <Content Include="Connected Services\ServiceReference3\AppConferenciaABP.ServiceReference3.Faturamento.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <Content Include="Connected Services\ServiceReference3\AppConferenciaABP.ServiceReference3.IncluirAjudantesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <Content Include="Connected Services\ServiceReference3\AppConferenciaABP.ServiceReference3.Industria.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
