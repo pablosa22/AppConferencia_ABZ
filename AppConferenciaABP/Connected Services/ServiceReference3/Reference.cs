@@ -156,6 +156,9 @@ namespace AppConferenciaABP.ServiceReference3 {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ConferidoField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PreferencialField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -305,6 +308,19 @@ namespace AppConferenciaABP.ServiceReference3 {
                 if ((object.ReferenceEquals(this.ConferidoField, value) != true)) {
                     this.ConferidoField = value;
                     this.RaisePropertyChanged("Conferido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=11)]
+        public string Preferencial {
+            get {
+                return this.PreferencialField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PreferencialField, value) != true)) {
+                    this.PreferencialField = value;
+                    this.RaisePropertyChanged("Preferencial");
                 }
             }
         }
@@ -1885,6 +1901,146 @@ namespace AppConferenciaABP.ServiceReference3 {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PainelMix", Namespace="http://tempuri.org/")]
+    [System.SerializableAttribute()]
+    public partial class PainelMix : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private long CargaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MotoristaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PlacaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ConferenteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DestinoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MontagemField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ConferidoField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public long Carga {
+            get {
+                return this.CargaField;
+            }
+            set {
+                if ((this.CargaField.Equals(value) != true)) {
+                    this.CargaField = value;
+                    this.RaisePropertyChanged("Carga");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string Motorista {
+            get {
+                return this.MotoristaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MotoristaField, value) != true)) {
+                    this.MotoristaField = value;
+                    this.RaisePropertyChanged("Motorista");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string Placa {
+            get {
+                return this.PlacaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PlacaField, value) != true)) {
+                    this.PlacaField = value;
+                    this.RaisePropertyChanged("Placa");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
+        public string Conferente {
+            get {
+                return this.ConferenteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ConferenteField, value) != true)) {
+                    this.ConferenteField = value;
+                    this.RaisePropertyChanged("Conferente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
+        public string Destino {
+            get {
+                return this.DestinoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DestinoField, value) != true)) {
+                    this.DestinoField = value;
+                    this.RaisePropertyChanged("Destino");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=5)]
+        public string Montagem {
+            get {
+                return this.MontagemField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MontagemField, value) != true)) {
+                    this.MontagemField = value;
+                    this.RaisePropertyChanged("Montagem");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=6)]
+        public string Conferido {
+            get {
+                return this.ConferidoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ConferidoField, value) != true)) {
+                    this.ConferidoField = value;
+                    this.RaisePropertyChanged("Conferido");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference3.WebService1Soap")]
     public interface WebService1Soap {
@@ -1963,10 +2119,10 @@ namespace AppConferenciaABP.ServiceReference3 {
         System.Threading.Tasks.Task<AppConferenciaABP.ServiceReference3.ValidaConferenciaCompletaResponse> ValidaConferenciaCompletaAsync(AppConferenciaABP.ServiceReference3.ValidaConferenciaCompletaRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/EnviaPedidoParaPainel", ReplyAction="*")]
-        void EnviaPedidoParaPainel(int opcao, long numero, int filial);
+        void EnviaPedidoParaPainel(int opcao, long numero, int filial, int botao);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/EnviaPedidoParaPainel", ReplyAction="*")]
-        System.Threading.Tasks.Task EnviaPedidoParaPainelAsync(int opcao, long numero, int filial);
+        System.Threading.Tasks.Task EnviaPedidoParaPainelAsync(int opcao, long numero, int filial, int botao);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ExcluirPedidoDoPainel", ReplyAction="*")]
         void ExcluirPedidoDoPainel(int opcao, long numero, int filial);
@@ -2076,6 +2232,13 @@ namespace AppConferenciaABP.ServiceReference3 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IncluirAjudantes", ReplyAction="*")]
         System.Threading.Tasks.Task<AppConferenciaABP.ServiceReference3.IncluirAjudantesResponse> IncluirAjudantesAsync(AppConferenciaABP.ServiceReference3.IncluirAjudantesRequest request);
+        
+        // CODEGEN: Gerando contrato de mensagem porque o nome do elemento ListaCargasMixResult no namespace http://tempuri.org/ não está marcado como nulo
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListaCargasMix", ReplyAction="*")]
+        AppConferenciaABP.ServiceReference3.ListaCargasMixResponse ListaCargasMix(AppConferenciaABP.ServiceReference3.ListaCargasMixRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListaCargasMix", ReplyAction="*")]
+        System.Threading.Tasks.Task<AppConferenciaABP.ServiceReference3.ListaCargasMixResponse> ListaCargasMixAsync(AppConferenciaABP.ServiceReference3.ListaCargasMixRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -3484,6 +3647,67 @@ namespace AppConferenciaABP.ServiceReference3 {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ListaCargasMixRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="ListaCargasMix", Namespace="http://tempuri.org/", Order=0)]
+        public AppConferenciaABP.ServiceReference3.ListaCargasMixRequestBody Body;
+        
+        public ListaCargasMixRequest() {
+        }
+        
+        public ListaCargasMixRequest(AppConferenciaABP.ServiceReference3.ListaCargasMixRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute()]
+    public partial class ListaCargasMixRequestBody {
+        
+        public ListaCargasMixRequestBody() {
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ListaCargasMixResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="ListaCargasMixResponse", Namespace="http://tempuri.org/", Order=0)]
+        public AppConferenciaABP.ServiceReference3.ListaCargasMixResponseBody Body;
+        
+        public ListaCargasMixResponse() {
+        }
+        
+        public ListaCargasMixResponse(AppConferenciaABP.ServiceReference3.ListaCargasMixResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class ListaCargasMixResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public AppConferenciaABP.ServiceReference3.PainelMix[] ListaCargasMixResult;
+        
+        public ListaCargasMixResponseBody() {
+        }
+        
+        public ListaCargasMixResponseBody(AppConferenciaABP.ServiceReference3.PainelMix[] ListaCargasMixResult) {
+            this.ListaCargasMixResult = ListaCargasMixResult;
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface WebService1SoapChannel : AppConferenciaABP.ServiceReference3.WebService1Soap, System.ServiceModel.IClientChannel {
     }
@@ -3722,12 +3946,12 @@ namespace AppConferenciaABP.ServiceReference3 {
             return ((AppConferenciaABP.ServiceReference3.WebService1Soap)(this)).ValidaConferenciaCompletaAsync(inValue);
         }
         
-        public void EnviaPedidoParaPainel(int opcao, long numero, int filial) {
-            base.Channel.EnviaPedidoParaPainel(opcao, numero, filial);
+        public void EnviaPedidoParaPainel(int opcao, long numero, int filial, int botao) {
+            base.Channel.EnviaPedidoParaPainel(opcao, numero, filial, botao);
         }
         
-        public System.Threading.Tasks.Task EnviaPedidoParaPainelAsync(int opcao, long numero, int filial) {
-            return base.Channel.EnviaPedidoParaPainelAsync(opcao, numero, filial);
+        public System.Threading.Tasks.Task EnviaPedidoParaPainelAsync(int opcao, long numero, int filial, int botao) {
+            return base.Channel.EnviaPedidoParaPainelAsync(opcao, numero, filial, botao);
         }
         
         public void ExcluirPedidoDoPainel(int opcao, long numero, int filial) {
@@ -4114,6 +4338,29 @@ namespace AppConferenciaABP.ServiceReference3 {
             inValue.Body.aj10 = aj10;
             inValue.Body.obs = obs;
             return ((AppConferenciaABP.ServiceReference3.WebService1Soap)(this)).IncluirAjudantesAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        AppConferenciaABP.ServiceReference3.ListaCargasMixResponse AppConferenciaABP.ServiceReference3.WebService1Soap.ListaCargasMix(AppConferenciaABP.ServiceReference3.ListaCargasMixRequest request) {
+            return base.Channel.ListaCargasMix(request);
+        }
+        
+        public AppConferenciaABP.ServiceReference3.PainelMix[] ListaCargasMix() {
+            AppConferenciaABP.ServiceReference3.ListaCargasMixRequest inValue = new AppConferenciaABP.ServiceReference3.ListaCargasMixRequest();
+            inValue.Body = new AppConferenciaABP.ServiceReference3.ListaCargasMixRequestBody();
+            AppConferenciaABP.ServiceReference3.ListaCargasMixResponse retVal = ((AppConferenciaABP.ServiceReference3.WebService1Soap)(this)).ListaCargasMix(inValue);
+            return retVal.Body.ListaCargasMixResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<AppConferenciaABP.ServiceReference3.ListaCargasMixResponse> AppConferenciaABP.ServiceReference3.WebService1Soap.ListaCargasMixAsync(AppConferenciaABP.ServiceReference3.ListaCargasMixRequest request) {
+            return base.Channel.ListaCargasMixAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<AppConferenciaABP.ServiceReference3.ListaCargasMixResponse> ListaCargasMixAsync() {
+            AppConferenciaABP.ServiceReference3.ListaCargasMixRequest inValue = new AppConferenciaABP.ServiceReference3.ListaCargasMixRequest();
+            inValue.Body = new AppConferenciaABP.ServiceReference3.ListaCargasMixRequestBody();
+            return ((AppConferenciaABP.ServiceReference3.WebService1Soap)(this)).ListaCargasMixAsync(inValue);
         }
     }
 }

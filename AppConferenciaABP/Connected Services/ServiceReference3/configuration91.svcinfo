@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="abtr6ZNmIXE3baVJHarn8qvMmyKKTHSm4EB4KJtIHI4=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="OTOZfPolsut2ACw6oCtDqmdzWwrrpxB8EjnB8Zhon1U=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="WebService1Soap">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="WebService1Soap" contract="ServiceReference3.WebService1Soap" bindingType="basicHttpBinding" address="http://localhost:59195/WebService1.asmx" bindingConfiguration="WebService1Soap">
+    <endpoint name="WebService1Soap" contract="ServiceReference3.WebService1Soap" bindingType="basicHttpBinding" address="http://192.168.251.2:8383/WebService1.asmx" bindingConfiguration="WebService1Soap">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://localhost:59195/WebService1.asmx</serializedValue>
+          <serializedValue>http://192.168.251.2:8383/WebService1.asmx</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

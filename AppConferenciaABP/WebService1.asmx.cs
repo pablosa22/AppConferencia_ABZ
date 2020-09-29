@@ -70,7 +70,7 @@ namespace AppConferenciaABP
             {
                 cnn.Open();
                 OracleCommand cmd = new OracleCommand("SELECT C.CODFILIAL, C.NUMPED, NVL(C.NUMNOTA,0)NOTA, C.CODCLI, SUBSTR(L.CLIENTE, 1, INSTR(L.CLIENTE,' ')-1 )||SUBSTR(L.CLIENTE, INSTR(L.CLIENTE, ' '), INSTR(L.CLIENTE, ' ',2))CLIENTE, " +
-                    " L.UFRG, C.OBS, C.OBS1, C.OBS2, SUBSTR(E.NOME,1,INSTR(E.NOME,' ')-1)CONFERENTE, I.PERC FROM PCPEDC C, PCCLIENT L, PCEMPR E, " +
+                    " L.UFRG, C.OBS, C.OBS1, C.OBS2, SUBSTR(E.NOME,1,INSTR(E.NOME,' ')-1)CONFERENTE, I.PERC, DECODE(C.DTCHEGADACLIENTE,'','NAO','SIM')PRIORIDADE FROM PCPEDC C, PCCLIENT L, PCEMPR E, " +
                     " (SELECT I.NUMPED, ROUND(((COUNT(I.QTSEPARADA) * 100) / COUNT(I.QT)), 2) || '%' PERC FROM PCPEDI I GROUP BY I.NUMPED)I WHERE C.CODCLI = L.CODCLI AND E.MATRICULA(+) = C.CODFUNCSEP " +
                     $" AND I.NUMPED = C.NUMPED  AND DATA > TRUNC(SYSDATE) - 120 AND ORDEMCONF = '{ordemConf}' AND C.DTFINALSEP IS NULL ORDER BY C.DTIMPORTACAO ASC", cnn);
                 cmd.BindByName = true;                
@@ -93,6 +93,7 @@ namespace AppConferenciaABP
                     painelConferencia.Obs2 = rdr["OBS2"].ToString();
                     painelConferencia.Conferente = rdr["CONFERENTE"].ToString();
                     painelConferencia.Conferido = rdr["PERC"].ToString();
+                    painelConferencia.Preferencial = rdr["PRIORIDADE"].ToString();
                     list.Add(painelConferencia);
                 }
                 rdr.Close();
@@ -415,12 +416,12 @@ namespace AppConferenciaABP
 
         //Painel faturamento dispara pedido para processo de separação/conferencia
         [WebMethod]
-        public void EnviaPedidoParaPainel(int opcao, long numero, int filial)
+        public void EnviaPedidoParaPainel(int opcao, long numero, int filial, int botao)
         {       
             OracleConnection cnn = new OracleConnection("DATA SOURCE=192.168.251.3:1521/WINT;PERSIST SECURITY INFO=True;USER ID=ACOBRAZIL; Password=SGAGRANADO;");
             try
             {
-                if (opcao == 2 && numero != 0)
+                if (opcao == 2 && numero != 0 && botao == 1)
                 {
                     cnn.Open();
                     OracleCommand cmd = new OracleCommand("UPDATE PCPEDC SET ORDEMCONF = 99, NUMVIASMAPASEP = 1, DTIMPORTACAO = SYSDATE WHERE NUMNOTA =:numero AND CODFILIAL =:filial " +
@@ -429,7 +430,17 @@ namespace AppConferenciaABP
                     cmd.Parameters.Add(new OracleParameter("CODFILIAL", filial));
                     cmd.ExecuteNonQuery();
                 }
-                else if (opcao == 3 && numero != 0)
+                else if (opcao == 2 && numero != 0 && botao == 2)
+                {
+                    cnn.Open();
+                    OracleCommand cmd = new OracleCommand("UPDATE PCPEDC SET ORDEMCONF = 99, NUMVIASMAPASEP = 1, DTIMPORTACAO = SYSDATE, DTCHEGADACLIENTE = SYSDATE WHERE NUMNOTA =:numero AND CODFILIAL =:filial " +
+                        " AND DATA > TRUNC(SYSDATE) - 220 AND CONDVENDA = 8 AND ORDEMCONF IS NULL", cnn);
+                    cmd.Parameters.Add(new OracleParameter("NUMNOTA", numero));
+                    cmd.Parameters.Add(new OracleParameter("CODFILIAL", filial));
+                    cmd.ExecuteNonQuery();
+
+                }
+                else if (opcao == 3 && numero != 0 && botao == 1)
                 {
                     cnn.Open();
                     OracleCommand cmd1 = new OracleCommand("UPDATE PCCARREG C SET C.NUMVIASMAPA = 1 WHERE NUMCAR IN " +
@@ -444,13 +455,34 @@ namespace AppConferenciaABP
                     cmd.Parameters.Add(new OracleParameter("CODFILIAL", filial));
                     cmd.ExecuteNonQuery();
                 }
+                else if (opcao == 3 && numero != 0 && botao == 2)
+                {
+                    cnn.Open();
+                    OracleCommand cmd1 = new OracleCommand("UPDATE PCCARREG C SET C.NUMVIASMAPA = 1 WHERE NUMCAR IN " +
+                        " (SELECT NUMCAR FROM PCPEDC WHERE NUMPED =:numped AND CODFILIAL =:filial AND DATA > TRUNC(SYSDATE) - 220 AND ORDEMCONF IS NULL)", cnn);
+                    cmd1.Parameters.Add(new OracleParameter("NUMPED", numero));
+                    cmd1.Parameters.Add(new OracleParameter("CODFILIAL", filial));
+                    cmd1.ExecuteNonQuery();
+
+                    OracleCommand cmd = new OracleCommand("UPDATE PCPEDC SET ORDEMCONF = 99, NUMVIASMAPASEP = 1, DTIMPORTACAO = SYSDATE, DTCHEGADACLIENTE = SYSDATE WHERE NUMPED =:numero AND CODFILIAL =:filial " +
+                        " AND DATA > TRUNC(SYSDATE) - 220 AND CONDVENDA NOT IN(7) AND ORDEMCONF IS NULL", cnn);
+                    cmd.Parameters.Add(new OracleParameter("NUMPED", numero));
+                    cmd.Parameters.Add(new OracleParameter("CODFILIAL", filial));
+                    cmd.ExecuteNonQuery();
+                }
                 else if (opcao == 4 && numero != 0)
                 {
                     cnn.Open();
+                    OracleCommand cmd = new OracleCommand("UPDATE PCCARREG SET DIVISAOCARGA = 'MIX' WHERE NUMCAR =:numero AND DIVISAOCARGA IS NULL AND DTFECHA IS NULL", cnn);
+                    cmd.Parameters.Add(new OracleParameter("NUMCAR", numero));
+                    cmd.ExecuteNonQuery();
+
+                    /* ---- Regra de carregamento ----
                     OracleCommand cmd = new OracleCommand("UPDATE PCCARREG SET DTEXPORTACAO = SYSDATE WHERE NUMCAR =:numero AND DTEXPORTACAO IS NULL AND NUMVIASMAPA IS NOT NULL AND DTFAT IS NULL " +
                         " AND DESTINO NOT LIKE '%VENDA CHECK OUT 2030%' AND DESTINO NOT LIKE '%VENDA BALCAO RP%' ", cnn);
                     cmd.Parameters.Add(new OracleParameter("NUMCAR", numero));
                     cmd.ExecuteNonQuery();
+                     */
                 }
             }
             catch (Exception ex)
@@ -473,7 +505,7 @@ namespace AppConferenciaABP
                 if (opcao == 2 && numero != 0)
                 {
                     cnn.Open();
-                    OracleCommand cmd = new OracleCommand("UPDATE PCPEDC SET ORDEMCONF = null, CODFUNCSEP = null, DTINICIALSEP = null, DTFINALSEP = null, DTEXPORTACAO = SYSDATE, NUMVIASMAPASEP = null WHERE NUMNOTA =:numero AND CODFILIAL =:filial " +
+                    OracleCommand cmd = new OracleCommand("UPDATE PCPEDC SET ORDEMCONF = null, CODFUNCSEP = null, DTINICIALSEP = null, DTCHEGADACLIENTE = null, DTFINALSEP = null, DTEXPORTACAO = SYSDATE, NUMVIASMAPASEP = null WHERE NUMNOTA =:numero AND CODFILIAL =:filial " +
                         " AND DATA > TRUNC(SYSDATE) - 120 AND CONDVENDA = 8 AND DTFINALSEP IS NULL AND ORDEMCONF = 99", cnn);
                     cmd.Parameters.Add(new OracleParameter("NUMNOTA", numero));
                     cmd.Parameters.Add(new OracleParameter("CODFILIAL", filial));
@@ -493,7 +525,7 @@ namespace AppConferenciaABP
                 else if (opcao == 3 && numero != 0)
                 {
                     cnn.Open();
-                    OracleCommand cmd = new OracleCommand("UPDATE PCPEDC SET ORDEMCONF = null, CODFUNCSEP = null, DTINICIALSEP = null, DTFINALSEP = null, DTEXPORTACAO = SYSDATE, NUMVIASMAPASEP = null WHERE NUMPED =:numero AND CODFILIAL =:filial " +
+                    OracleCommand cmd = new OracleCommand("UPDATE PCPEDC SET ORDEMCONF = null, CODFUNCSEP = null, DTINICIALSEP = null, DTCHEGADACLIENTE = null , DTFINALSEP = null, DTEXPORTACAO = SYSDATE, NUMVIASMAPASEP = null WHERE NUMPED =:numero AND CODFILIAL =:filial " +
                         " AND DATA > TRUNC(SYSDATE) - 120 AND ORDEMCONF = 99 AND POSICAO NOT IN ('F','C')", cnn);
                     cmd.Parameters.Add(new OracleParameter("NUMPED", numero));
                     cmd.Parameters.Add(new OracleParameter("CODFILIAL", filial));
@@ -509,10 +541,17 @@ namespace AppConferenciaABP
                 else if (opcao == 4 && numero != 0)
                 {
                     cnn.Open();
+                    OracleCommand cmd = new OracleCommand("UPDATE PCCARREG SET DIVISAOCARGA = null WHERE NUMCAR =:numero AND DIVISAOCARGA = 'MIX' AND DTFECHA IS NULL", cnn);
+                    cmd.Parameters.Add(new OracleParameter("NUMCAR", numero));
+                    cmd.ExecuteNonQuery();
+
+                    /*---- Regra de carregamento ----
                     OracleCommand cmd = new OracleCommand("UPDATE PCCARREG SET DTEXPORTACAO = null WHERE NUMCAR =:numero AND DTEXPORTACAO IS NOT NULL AND NUMVIASMAPA IS NOT NULL AND DTFAT IS NULL " +
                         " AND DESTINO NOT LIKE '%VENDA CHECK OUT 2030%' AND DESTINO NOT LIKE '%VENDA BALCAO RP%' AND CODFUNCCONF IS NULL ", cnn);
                     cmd.Parameters.Add(new OracleParameter("NUMCAR", numero));
-                    cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();                     
+                     */
+
                 }
             }
             catch (Exception ex)
@@ -1018,7 +1057,6 @@ namespace AppConferenciaABP
 
         }
 
-
         //Painel Confirma matricula
         //Expecifico da filial 1
         [WebMethod]
@@ -1160,7 +1198,6 @@ namespace AppConferenciaABP
             }
             return pessoa;
         }
-
         
         //Incluir ajudantes na tabela abz_ajudante        
         [WebMethod]
@@ -1186,6 +1223,49 @@ namespace AppConferenciaABP
             {
                 cnn.Close();
             }
+        }        
+
+        //Lista de cargar do Mix
+        [WebMethod]
+        public List<PainelMix> ListaCargasMix() 
+        {
+            OracleConnection cnn = new OracleConnection("DATA SOURCE=192.168.251.3:1521/WINT;PERSIST SECURITY INFO=True;USER ID=ACOBRAZIL; Password=SGAGRANADO");
+            List<PainelMix> list = new List<PainelMix>();
+
+            try
+            {
+                cnn.Open();
+                OracleCommand cmd = new OracleCommand("SELECT C.NUMCAR, E.NOME, V.PLACA, (SELECT NOME FROM PCEMPR R WHERE R.MATRICULA = C.CODCONF)CONFERENTE, C.DESTINO, (SELECT NOME FROM PCEMPR R WHERE R.MATRICULA = C.CODFUNCMON)MONTAGEM, DECODE(C.BALCAOBAIXADO,'S','SIM','NÃO')CONFERIDO " +
+                    " FROM PCCARREG C, PCVEICUL V, PCEMPR E WHERE V.CODVEICULO = C.CODVEICULO AND E.MATRICULA = C.CODMOTORISTA AND C.DTFECHA IS NULL AND C.DT_CANCEL IS NULL AND C.CODFUNCFAT IS NULL AND C.DIVISAOCARGA = 'MIX' ORDER BY BALCAOBAIXADO ASC", cnn);
+                cmd.BindByName = true;
+                OracleDataReader rdr = cmd.ExecuteReader();
+
+                PainelMix itens = null;
+
+                while(rdr.Read()) 
+                {
+                    itens = new PainelMix();
+
+                    itens.Carga = Convert.ToInt64(rdr["NUMCAR"]);
+                    itens.Conferente = (rdr["NOME"].ToString());
+                    itens.Placa = (rdr["PLACA"].ToString());
+                    itens.Conferente = (rdr["CONFERENTE"].ToString());
+                    itens.Destino = (rdr["DESTINO"].ToString());
+                    itens.Montagem = (rdr["MONTAGEM"].ToString());
+                    itens.Conferido = (rdr["CONFERIDO"].ToString());
+                    list.Add(itens);
+                }
+                return list;
+
+            }
+            catch(Exception ex) 
+            {
+                throw ex;
+            }
+            finally 
+            {
+                cnn.Close();
+            }            
         }        
     }
 }

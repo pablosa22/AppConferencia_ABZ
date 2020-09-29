@@ -36,7 +36,7 @@
             <br />       
                 <asp:Button ID="btEntrar" class="btn btn-outline-success btn-block" runat="server" Text="Entrar" OnClick="btEntrar_Click" />                    
             <br />                 
-            <p class="mt-5 mb-3 text-muted">&copy; Desenvolvido Pela TI AçoBrazil Versão 3.7</p>             
+            <p class="mt-5 mb-3 text-muted">&copy; Desenvolvido Pela TI AçoBrazil Versão 4.0</p>             
             <asp:Label ID="lbDescricao" class="container" runat="server">Filial: 99 - Aço Brazil (Multi Filiais)</asp:Label>
         </div>
     </form>

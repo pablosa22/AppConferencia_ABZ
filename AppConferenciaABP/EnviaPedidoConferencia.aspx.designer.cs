@@ -7,11 +7,13 @@
 // </gerado automaticamente>
 //------------------------------------------------------------------------------
 
-namespace AppConferenciaABP {
-    
-    
-    public partial class EnviaPedidoConferencia {
-        
+namespace AppConferenciaABP
+{
+
+
+    public partial class EnviaPedidoConferencia
+    {
+
         /// <summary>
         /// Controle form1.
         /// </summary>
@@ -20,7 +22,7 @@ namespace AppConferenciaABP {
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-        
+
         /// <summary>
         /// Controle DropDownList1.
         /// </summary>
@@ -29,7 +31,7 @@ namespace AppConferenciaABP {
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
-        
+
         /// <summary>
         /// Controle DropDownList2.
         /// </summary>
@@ -38,7 +40,7 @@ namespace AppConferenciaABP {
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList2;
-        
+
         /// <summary>
         /// Controle TextBoxNumero.
         /// </summary>
@@ -47,7 +49,7 @@ namespace AppConferenciaABP {
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBoxNumero;
-        
+
         /// <summary>
         /// Controle btConfirmar.
         /// </summary>
@@ -56,7 +58,16 @@ namespace AppConferenciaABP {
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btConfirmar;
-        
+
+        /// <summary>
+        /// Controle btPrioridade.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btPrioridade;
+
         /// <summary>
         /// Controle btExcluir.
         /// </summary>
@@ -65,5 +76,14 @@ namespace AppConferenciaABP {
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btExcluir;
+
+        /// <summary>
+        /// Controle GridView1.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridView1;
     }
 }

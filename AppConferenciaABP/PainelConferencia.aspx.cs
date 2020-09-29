@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -14,6 +15,13 @@ namespace AppConferenciaABP
             ServiceReference3.WebService1SoapClient nn = new ServiceReference3.WebService1SoapClient();
             this.GridView1.DataSource = nn.ListaPedidosParaConferencia(99);
             this.GridView1.DataBind();
+            foreach (GridViewRow row in GridView1.Rows)
+            {
+                if (row.Cells[5].Text == "SIM")
+                {
+                    row.Cells[11].BackColor = ColorTranslator.FromHtml("#D2691E");
+                }
+            }
         }
     }
 }

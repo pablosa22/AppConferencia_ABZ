@@ -18,5 +18,6 @@ namespace AppConferenciaABP
         public string Obs2 { get; set; }
         public string Conferente { get; set; }
         public string Conferido { get; set; }
+        public string Preferencial { get; set; }
     }
 }

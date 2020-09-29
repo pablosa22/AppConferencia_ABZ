@@ -118,6 +118,9 @@
     <Content Include="Connected Services\ServiceReference3\AppConferenciaABP.ServiceReference3.InserirNovaCargaSeqEntregaResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <Content Include="Connected Services\ServiceReference3\AppConferenciaABP.ServiceReference3.ListaCargasMixResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <Content Include="Connected Services\ServiceReference3\AppConferenciaABP.ServiceReference3.ListaDetalhesDoPedidoResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -155,6 +158,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <Content Include="Connected Services\ServiceReference3\AppConferenciaABP.ServiceReference3.PainelConferencia.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\ServiceReference3\AppConferenciaABP.ServiceReference3.PainelMix.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <Content Include="Connected Services\ServiceReference3\AppConferenciaABP.ServiceReference3.Pedido.datasource">
@@ -211,6 +217,7 @@
     <Content Include="Manifesto.aspx" />
     <Content Include="Menu.aspx" />
     <Content Include="PainelAlmoxarifado.aspx" />
+    <Content Include="PainelCargaMix.aspx" />
     <Content Include="PainelCarregamento.aspx" />
     <Content Include="PainelConferencia.aspx" />
     <Content Include="PainelFaturamento.aspx" />
@@ -367,6 +374,13 @@
     <Compile Include="PainelAlmoxarifado.aspx.designer.cs">
       <DependentUpon>PainelAlmoxarifado.aspx</DependentUpon>
     </Compile>
+    <Compile Include="PainelCargaMix.aspx.cs">
+      <DependentUpon>PainelCargaMix.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PainelCargaMix.aspx.designer.cs">
+      <DependentUpon>PainelCargaMix.aspx</DependentUpon>
+    </Compile>
     <Compile Include="PainelCarregamento.aspx.cs">
       <DependentUpon>PainelCarregamento.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -390,6 +404,7 @@
     <Compile Include="PainelFaturamento.aspx.designer.cs">
       <DependentUpon>PainelFaturamento.aspx</DependentUpon>
     </Compile>
+    <Compile Include="PainelMix.cs" />
     <Compile Include="PainelOSIndustria.aspx.cs">
       <DependentUpon>PainelOSIndustria.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
